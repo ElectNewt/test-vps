@@ -35,4 +35,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: ping Dockploy webhook
-        run: curl -X POST "${{ secrets.DOKPLOY_WEBHOOK }}"
+        run: |
+          curl -X POST "${{ secrets.DOKPLOY_WEBHOOK }}" \
+          --header 'Content-type: application/json' \
+          --header 'X-Github-Event: Deploy-from-gihtub' \
+          --data '{"ref":"refs/heads/main"}' \
